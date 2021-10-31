@@ -1,7 +1,7 @@
 import sqlite3
 from random import randint
 from time import sleep
-from tqdm import tqdm as tq
+
 
 db = sqlite3.connect('Casino.db')
 cur = db.cursor()
@@ -13,26 +13,6 @@ cur.execute("CREATE TABLE IF NOT EXISTS users("
             "password TEXT,"
             "cash INT)")
 db.commit()
-
-
-def reg():
-    global user_login
-    global money
-
-    user_login = input('Введите логин: ')
-
-    cur.execute(f"SELECT login FROM users WHERE login = '{user_login}'")
-    if cur.fetchone() is None:
-        cur.execute("INSERT INTO users (login) VALUES (?)",
-                (user_login,))
-        db.commit()
-        print(f'{user_login} зарегистрирован!')
-    else:
-        print(f'{user_login} у нас уже есть!')
-
-def show():
-    for value in cur.execute('SELECT * FROM users'):
-        print(value)
 
 def MyCasino():
     user_login = input('Введите имя: ')
